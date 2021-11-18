@@ -1,0 +1,26 @@
+{
+  "name": "sprint-4.1.noderestserver",
+  "version": "1.0.0",
+  "description": "crearem una API REST de resposta ràpida. Sprint4.1",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cabirol/Sprint-4.1.NodeRestServer.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "DL Acevedo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cabirol/Sprint-4.1.NodeRestServer/issues"
+  },
+  "homepage": "https://github.com/Cabirol/Sprint-4.1.NodeRestServer#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
