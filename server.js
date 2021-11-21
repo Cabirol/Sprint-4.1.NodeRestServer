@@ -1,9 +1,8 @@
 const express = require('express');
+const multer = require('multer');
 const app = express();
 
 app.set('view engine', 'ejs');
-
-//app.use(express.json());
 
 app.listen(8000,function(){
     console.log("server is running");
@@ -30,22 +29,31 @@ que retorni un missatge d'error en cas que l'extensió de l'arxiu no coincideixi
 app.get('/upload', function(req,res){
   res.render("upload");
 });
-const path = require('path');
-const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb)=>{
     cb(null, 'images');
   },
   filename: (req, file, cb)=>{
-    console.log(file);
-    cb(null,Date.now()+path.extname(file.originalname))
+    cb(null, Date.now() + '-' + file.originalname);
   }
-})
+});
 
-const upload = multer({storage: storage});
+const fileFilter = (req, file, cb)=>{
+  if(file.mimetype === 'image/gif' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png'){
+    cb(null, true);
+  }else{
+    cb(new Error("Només s'accepten arxius png, jpg o gif"), false);
+  }
+};
 
-app.post('/upload', upload.single('image'), (req,res)=>{
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter
+});
+
+app.post('/upload', upload.single('image'), (req,res)=>{ //a postman: body, key: image, value: (carregar imatge)
+  console.log(req.file);
   res.send("image uploaded");
 })
 /*
