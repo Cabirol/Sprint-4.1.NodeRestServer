@@ -1,33 +1,22 @@
 const express = require('express');
 const multer = require('multer');
+const cors = require('cors');
+
 const app = express();
 
-app.set('view engine', 'ejs');
+app.use(express.json());
+app.use(cors());
 
 app.listen(8000,function(){
     console.log("server is running");
 });
 
-/*Nivell 1,Exercici 1:
-Crea un servidor amb Express 
-que retorni a una petició GET a l'endpoint /user un json amb el teu nom, edat i la url des d'on es fa la petició.
-*/
 app.get('/user', function(req,res){
     res.json({
         name:'Daniel',
         edat: '31',
         url: 'http://localhost:8000/user'
     });
-});
-
-/*
-- Exercici 2
-Afegeix un endpoint /upload 
-per a pujar al servidor un arxiu de tipus png, jpg o gif 
-que retorni un missatge d'error en cas que l'extensió de l'arxiu no coincideixi amb aquestes.
-*/
-app.get('/upload', function(req,res){
-  res.render("upload");
 });
 
 const storage = multer.diskStorage({
@@ -52,19 +41,31 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-app.post('/upload', upload.single('image'), (req,res)=>{ //a postman: body, key: image, value: (carregar imatge)
+app.post('/upload', upload.single('image'), (req,res)=>{
   console.log(req.file);
   res.send("image uploaded");
 })
-/*
-Nivell 2
-- Exercici 1
-Creu un endpoint /time 
-que rebi per POST com a paràmetre un JSON amb el nom d'usuari i retorni un objecte JSON que contingui l'hora i data actual. 
-Inclogui un middleware que afegeixi la capçalera Cache-control: no-cache. 
-Habiliti CORS en les respostes, ja sigui mitjançant Express o mitjançant un altre middleware.
 
-Nivell 3
-- Exercici 1
-Afegeixi un middleware a l'endpoint anterior 
-que retorni un HTTP Status 401 - Unauthorized si la capçalera de la petició no conté autenticació bàsica (usuari i contrasenya.*/
+app.post('/time', cacheInit, (req,res)=>{
+
+  const username=req.body.username;
+  const password=req.body.password;
+
+  const mockUsername="Daniel";
+  const mockPassword="1234";
+
+  if (username===mockUsername && password===mockPassword){
+    let d = new Date;
+    res.json({
+      success: true,
+      message: 'usuari i contrasenya correctes!',
+      hora: `${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`,
+      data: `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`
+    });
+  } else {
+    res.status(401).json({
+      success: false,
+      message: 'usuari i contrasenya incorrectes'
+    });
+  }
+});
