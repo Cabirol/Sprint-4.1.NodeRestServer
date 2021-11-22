@@ -1,4 +1,23 @@
 # Sprint-4.1.NodeRestServer
+
+## Instruccions:
+
+Instal·lar els mòduls express, multer i cors:
+
+`npm install`
+
+Iniciar el server:
+
+`npm start`
+
+A la documentació de la col·lecció de postman hi ha les instruccions per a cada petició.
+
+## Dubtes:
+
+No sé per què fem servir cors.
+
+## Enunciat dels exercicis:
+
 Crearem una API REST de resposta ràpida
 
 Nivell 1
@@ -14,4 +33,4 @@ Creu un endpoint /time que rebi per POST com a paràmetre un JSON amb el nom d'u
 
 Nivell 3
 - Exercici 1
-Afegeixi un middleware a l'endpoint anterior que retorni un HTTP Status 401 - Unauthorized si la capçalera de la petició no conté autenticació bàsica (usuari i contrasenya.
+Afegeixi un middleware a l'endpoint anterior que retorni un HTTP Status 401 - Unauthorized si la capçalera de la petició no conté autenticació bàsica (usuari i contrasenya).

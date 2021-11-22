@@ -43,24 +43,30 @@ const upload = multer({
 
 app.post('/upload', upload.single('image'), (req,res)=>{
   console.log(req.file);
-  res.send("image uploaded");
-})
+  if(req.file===undefined) {
+    res.send("no s'ha pujat cap imatge");
+  }else{
+    res.send("image uploaded");
+  }
+});
 
-app.post('/time', cacheInit, (req,res)=>{
+app.post('/time', (req,res)=>{
 
-  const username=req.body.username;
-  const password=req.body.password;
+  const username=req.headers.username;
+  const password=req.headers.password;
 
   const mockUsername="Daniel";
   const mockPassword="1234";
 
   if (username===mockUsername && password===mockPassword){
-    let d = new Date;
-    res.json({
+    let date = new Date;
+    let usuari = req.body.username;
+    res.set('Cache-control','no cache').json({
       success: true,
       message: 'usuari i contrasenya correctes!',
-      hora: `${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`,
-      data: `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`
+      usuari: usuari,
+      hora: `${date.getHours()}:${String(date.getMinutes()).padStart(2,'0')}`,
+      data: `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
     });
   } else {
     res.status(401).json({
