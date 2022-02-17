@@ -12,11 +12,15 @@ app.listen(8000,function(){
 });
 
 app.get('/user', function(req,res){
-    res.json({
+  try{
+    res.status(200).json({
         name:'Daniel',
         edat: '31',
         url: 'http://localhost:8000/user'
     });
+  }catch(e){
+    res.status(400).json({error: "bad request"});
+  }
 });
 
 const storage = multer.diskStorage({
@@ -32,7 +36,7 @@ const fileFilter = (req, file, cb)=>{
   if(file.mimetype === 'image/gif' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png'){
     cb(null, true);
   }else{
-    cb(new Error("Només s'accepten arxius png, jpg o gif"), false);
+    cb(null, false);
   }
 };
 
@@ -42,12 +46,14 @@ const upload = multer({
 });
 
 app.post('/upload', upload.single('image'), (req,res)=>{
+
   console.log(req.file);
-  if(req.file===undefined) {
-    res.send("no s'ha pujat cap imatge");
+  if(!req.file) {
+    res.status(400).json({error: "no s'ha pujat cap imatge png, jpg o gif"});
   }else{
-    res.send("image uploaded");
+    res.status(201).json({result: "image uploaded"});
   }
+
 });
 
 app.post('/time', (req,res)=>{
@@ -74,4 +80,11 @@ app.post('/time', (req,res)=>{
       message: 'usuari i contrasenya incorrectes'
     });
   }
+});
+
+app.get('*', (req, res)=>{
+  res.status(404).json({
+      title: '404',
+      error: 'Page not found'
+  });
 });

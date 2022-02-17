@@ -12,10 +12,6 @@ Iniciar el server:
 
 A la documentació de la col·lecció de postman hi ha les instruccions per a cada petició.
 
-## Dubtes:
-
-No sé per què fem servir cors.
-
 ## Enunciat dels exercicis:
 
 Crearem una API REST de resposta ràpida
