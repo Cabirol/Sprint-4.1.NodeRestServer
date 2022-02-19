@@ -14,7 +14,7 @@ A la documentació de la col·lecció de postman hi ha les instruccions per a ca
 
 ## Enunciat dels exercicis:
 
-Crearem una API REST de resposta ràpida
+Crearem una API REST de resposta ràpida:
 
 Nivell 1
 - Exercici 1
