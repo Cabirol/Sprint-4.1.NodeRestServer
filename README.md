@@ -25,7 +25,7 @@ Afegeix un endpoint /upload per a pujar al servidor un arxiu de tipus png, jpg o
 
 Nivell 2
 - Exercici 1
-Creu un endpoint /time que rebi per POST com a paràmetre un JSON amb el nom d'usuari i retorni un objecte JSON que contingui l'hora i data actual. Inclogui un middleware que afegeixi la capçalera Cache-control: no-cache. Habiliti CORS en les respostes, ja sigui mitjançant Express o mitjançant un altre middleware.
+Crea un endpoint /time que rebi per POST com a paràmetre un JSON amb el nom d'usuari i retorni un objecte JSON que contingui l'hora i data actual. Inclogui un middleware que afegeixi la capçalera Cache-control: no-cache. Habiliti CORS en les respostes, ja sigui mitjançant Express o mitjançant un altre middleware.
 
 Nivell 3
 - Exercici 1
